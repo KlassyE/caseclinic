@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --company-green: #388E3C;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ffffff;
+  color: #1a202c;
+  overflow-x: hidden;
+  width: 100vw;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}

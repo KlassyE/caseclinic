@@ -1,0 +1,20 @@
+{
+    "name": "case-clinic-web-pivot",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "concurrently \"npm run server\" \"npm run client\"",
+        "dev": "npm start",
+        "server": "cd server && npm start",
+        "client": "cd client && npm run dev",
+        "install:all": "npm install && cd client && npm install && cd ../server && npm install"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    },
+    "dependencies": {
+        "framer-motion": "^12.34.2",
+        "lucide-react": "^0.575.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0"
+    }
+}
