@@ -38,7 +38,7 @@ export default function Login() {
 
     const quickLogin = (role) => {
         if (role === 'patient') { setEmail('patient@clinic.com'); setPassword('123'); }
-        else if (role === 'doctor') { setEmail('smith@clinic.com'); setPassword('123'); }
+        else if (role === 'doctor') { setEmail('drsmith@clinic.com'); setPassword('123'); }
         else if (role === 'admin') { setEmail('admin@clinic.com'); setPassword('123'); }
     };
 
