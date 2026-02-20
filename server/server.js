@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const { Server } = require('socket.io');
+const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
@@ -11,6 +12,9 @@ const io = new Server(server, {
 
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // --- CONSTANTS ---
 const SPECIALTIES = ['Cardiology', 'Dermatology', 'Pediatrics', 'Orthopedics', 'General Medicine', 'Neurology', 'Oncology'];
@@ -159,5 +163,13 @@ app.post('/seed', (req, res) => {
   res.json({ message: 'Data reset' });
 });
 
-const PORT = 3001;
-server.listen(PORT, () => console.log(`HMIS Server running on port ${PORT}`));
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
+
+const PORT = process.env.PORT || 3001;
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`HMIS Backend Running on Port ${PORT}`);
+});

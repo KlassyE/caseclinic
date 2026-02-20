@@ -22,7 +22,8 @@ export default function BookingScreen() {
     const bookAppointment = async () => {
         setLoading(true);
         try {
-            const res = await fetch('http://localhost:3001/book', {
+            const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3001' : '');
+            const res = await fetch(`${API_URL}/book`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

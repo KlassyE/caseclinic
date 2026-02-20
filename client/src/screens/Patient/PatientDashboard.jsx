@@ -12,8 +12,9 @@ export default function PatientDashboard({ tab = 'booking' }) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:3001/doctors').then(res => res.json()).then(setDoctors);
-        fetch('http://localhost:3001/appointments').then(res => res.json()).then(data => {
+        const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3001' : '');
+        fetch(`${API_URL}/doctors`).then(res => res.json()).then(setDoctors);
+        fetch(`${API_URL}/appointments`).then(res => res.json()).then(data => {
             setAppointments(data.filter(app => app.patientPhone === user.phone));
         });
     }, [user.phone]);

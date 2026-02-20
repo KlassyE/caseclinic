@@ -13,7 +13,8 @@ export default function Login() {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await fetch('http://localhost:3001/auth/login', {
+            const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3001' : '');
+            const res = await fetch(`${API_URL}/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),

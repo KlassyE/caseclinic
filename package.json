@@ -2,10 +2,11 @@
     "name": "case-clinic-web-pivot",
     "version": "1.0.0",
     "scripts": {
-        "start": "concurrently \"npm run server\" \"npm run client\"",
-        "dev": "npm start",
+        "start": "node server/server.js",
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
         "server": "cd server && npm start",
         "client": "cd client && npm run dev",
+        "build": "cd client && npm install && npm run build",
         "install:all": "npm install && cd client && npm install && cd ../server && npm install"
     },
     "devDependencies": {

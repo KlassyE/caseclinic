@@ -24,7 +24,8 @@ export default function DoctorDashboard() {
     }, [user.id]);
 
     const fetchAppointments = () => {
-        fetch('http://localhost:3001/appointments')
+        const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3001' : '');
+        fetch(`${API_URL}/appointments`)
             .then(res => res.json())
             .then(data => {
                 setAppointments(data.filter(app => app.doctorId === user.id));
@@ -49,8 +50,9 @@ export default function DoctorDashboard() {
     const handleTreatPatient = async () => {
         setLoading(true);
         try {
+            const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3001' : '');
             const labs = labTest ? [{ id: Date.now().toString(), test: labTest, status: 'pending' }] : [];
-            const res = await fetch(`http://localhost:3001/appointments/${selectedAppt._id}/clinical`, {
+            const res = await fetch(`${API_URL}/appointments/${selectedAppt._id}/clinical`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

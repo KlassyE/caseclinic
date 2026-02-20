@@ -4,7 +4,8 @@ import { Calendar, Users, Activity, Check, X, LogOut, Clock, CreditCard, DollarS
 import io from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 
-const socket = io('http://localhost:3001');
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3001' : '');
+const socket = io(API_URL);
 
 export default function AdminDashboard({ tab = 'appointments' }) {
     const [appointments, setAppointments] = useState([]);
@@ -21,11 +22,11 @@ export default function AdminDashboard({ tab = 'appointments' }) {
         return () => socket.off();
     }, []);
 
-    const fetchAppointments = () => fetch('http://localhost:3001/appointments').then(res => res.json()).then(setAppointments);
-    const fetchDoctors = () => fetch('http://localhost:3001/doctors').then(res => res.json()).then(setDoctors);
+    const fetchAppointments = () => fetch(`${API_URL}/appointments`).then(res => res.json()).then(setAppointments);
+    const fetchDoctors = () => fetch(`${API_URL}/doctors`).then(res => res.json()).then(setDoctors);
 
     const updateBilling = async (id, status) => {
-        await fetch(`http://localhost:3001/appointments/${id}/billing`, {
+        await fetch(`${API_URL}/appointments/${id}/billing`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ status })

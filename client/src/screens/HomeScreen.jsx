@@ -7,7 +7,8 @@ export default function HomeScreen() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:3001/doctors')
+        const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3001' : '');
+        fetch(`${API_URL}/doctors`)
             .then(res => res.json())
             .then(setDoctors)
             .catch(err => console.error("Failed to fetch doctors:", err));
